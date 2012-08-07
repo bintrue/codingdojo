@@ -1,0 +1,63 @@
+#!/usr/bin/perl
+use color;
+
+print color::emph("Checking coverage output\n");
+
+my $error = 0;
+
+sub getCovColor
+{
+  my $percent = shift;
+  my $line = shift;
+
+  chomp $line;
+  if ( $percent < 50 )
+  {
+    $error = 1;
+    return color::nok( $line ) . " Dude this is shameful. Start writing those tests!";
+  }
+
+  if ( $percent < 90 )
+  {
+    $error = 1;
+    return color::emph( $line ) . " Getting closer, just a few more tests.";
+  }
+
+  return color::ok( $line ) . " Awesome!";
+}
+
+sub parseCoverageData {
+  my $fileName = shift;
+  my @covData = @_;
+  $covData[2] =~ /Lines executed:(\d+).*/;
+  print color::emph( " - $fileName " ) . " -> " . getCovColor( $1, " $1%" ) . "\n";
+}
+
+
+my $isBlockStarted=0;
+my @lastBlock = [];
+my $lastBlockName = "";
+while ( my $line = <STDIN> )
+{
+  next if $line=~/\/usr\//;
+
+  if ( $line=~/^File '(.*)'$/ )
+  {
+    $isBlockStarted = 1;
+    $lastBlockName = $1;
+    @lastBlock = [];
+  }
+
+  next if not $isBlockStarted;
+
+  if ( $line=~/^$/ )
+  {
+    $isBlockStarted = 0;
+    parseCoverageData( $lastBlockName, @lastBlock );
+  }
+
+  push( @lastBlock, $line );
+}
+
+exit $error;
+

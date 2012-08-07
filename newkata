@@ -1,0 +1,7 @@
+#!/bin/bash
+
+KATA_NAME=$1
+mkdir $KATA_NAME
+cp framework/Makefile $KATA_NAME
+cp framework/test_template.hpp $KATA_NAME/test_$KATA_NAME.hpp
+

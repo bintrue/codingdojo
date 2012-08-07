@@ -1,4 +1,11 @@
 codingdojo
 ==========
 
-code from coding dojos
+Code written during coding dojos.
+
+## Creating kata framework
+
+```
+./newkata <karaname>
+```
+

@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use color;
+
+print color::emph("Checking valgrind output\n");
+
+my $error = 0;
+
+sub checkError
+{
+  my $errorNum = shift;
+  my $line = shift;
+  return if $errorNum eq 0;
+  print color::nok( $line );
+  $error = 1;
+}
+
+
+while ( my $line = <STDIN> )
+{
+  if ( $line=~/ERROR SUMMARY: (\d+) errors from (\d+) contexts/ or
+       $line=~/.* lost: (\d+) bytes/ or
+       $line=~/(I)nvalid read/ or
+       $line=~/(I)nvalid write/ or
+       $line=~/(I)nvalid free/ )
+  {
+    checkError( $1, $line );
+  }
+
+
+}
+
+exit $error;
+

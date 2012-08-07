@@ -1,0 +1,41 @@
+CXXFLAGS+=-Wall -pedantic -Werror -ftest-coverage -fprofile-arcs -std=c++11
+CXX=g++
+
+RELATIVE_FRAMEWORK=../framework
+PATH:=$(RELATIVE_FRAMEWORK):${PATH}
+
+COVSUMMARY=./covsummary
+
+TEST_SRC=test.cpp
+TEST_EXEC=./testFile
+TEST_LOG=./testFile.log
+VALGRIND_LOG=./mem.log
+
+default: check
+
+$(TEST_SRC): $(TST)
+	cxxtestgen --error-printer -o $(TEST_SRC) $(TST)
+
+$(TEST_EXEC): $(SRC) $(TEST_SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) $(TEST_SRC) -o $(TEST_EXEC)
+
+test: $(TEST_EXEC)
+	valgrind --leak-check=full --show-reachable=yes --log-file=$(VALGRIND_LOG) $(TEST_EXEC) | tee $(TEST_LOG)
+	gcov -b $(SRC) > $(COVSUMMARY)
+
+checktest: test
+	@cat $(TEST_LOG) | PERL5LIB=$(RELATIVE_FRAMEWORK) checkTest
+
+checkvalgrind: test
+	@cat $(VALGRIND_LOG) | PERL5LIB=$(RELATIVE_FRAMEWORK) checkValgrind
+
+checkcov: test
+	@cat $(COVSUMMARY) | PERL5LIB=$(RELATIVE_FRAMEWORK) checkCoverage
+
+check: checktest checkvalgrind checkcov
+
+clean:
+	rm -rf *~ *.o $(TEST_EXEC) $(TEST_SRC) *.gcno *.gcov *.gcda $(COVSUMMARY) $(TEST_LOG) $(VALGRIND_LOG)
+
+.PHONY: test clean check checktest checkvalgrind checkcov
+

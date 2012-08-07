@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+use color;
+
+print color::emph("Checking cxxtest output\n");
+
+my $error = 0;
+while ( my $line = <STDIN> )
+{
+  print color::ok( $line ) if ( $line =~ /OK/ );
+  if ( $line =~ /Failed|Error/ )
+  {
+    print color::nok( $line );
+    $error = 1;
+  }
+}
+
+exit $error;
+
