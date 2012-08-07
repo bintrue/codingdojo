@@ -10,3 +10,26 @@
 *.lai
 *.la
 *.a
+
+# editor temporaries
+*.swp
+*~
+
+# coverage data
+*.gcov
+*.gcda
+*.gcno
+covsummary
+
+# valgrind log
+mem.log
+
+# generated cxxtest source
+test.cpp
+
+# test binary
+testFile
+
+# test output
+testFile.log
+
