@@ -3,9 +3,9 @@ codingdojo
 
 Code written during coding dojos.
 
-## Creating kata framework
+## Creating new kata base structure
 
 ```
-./newkata <karaname>
+./newkata <kataname>
 ```
 
