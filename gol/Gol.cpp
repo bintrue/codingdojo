@@ -1,5 +1,7 @@
 #include "Gol.hpp"
 
+#include <assert.h>
+
 const CellState Gol::DEAD;
 const CellState Gol::ALIVE;
 
@@ -26,7 +28,21 @@ int Gol::getNeighbourCount(int i, int j) const
     getAt(i - 1,j + 1);
 }
 
-void Gol::firstGeneration(std::istream&){}
+void Gol::firstGeneration(std::istream& in)
+{
+  std::string line;
+  size_t y = 0;
+  while (std::getline(in, line)) {
+    size_t x = 0;
+    assert (!matrix_.empty() && (matrix_[0].size() > y));
+    for (auto i = line.begin(); i != line.end(); ++i, ++x) {
+      assert(x < matrix_.size());
+      matrix_[x][y] = (*i == 'X') ? ALIVE : DEAD;      
+    }
+    ++y;
+  }
+  
+}
 
 CellState Gol::getNewState(int x, int y) const
 {
@@ -40,3 +56,7 @@ CellState Gol::getNewState(int x, int y) const
       getNeighbourCount(x,y) == 2)? ALIVE:DEAD;
 }
 
+bool Gol::evolve()
+{
+  return true;
+}

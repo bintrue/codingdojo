@@ -15,6 +15,7 @@ class Gol
     int getNeighbourCount(int x, int y) const;
     void firstGeneration(std::istream&);
 
+    bool evolve();
 
   private: 
     CellState const& getAt(int x, int y) const;
