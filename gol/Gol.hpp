@@ -11,8 +11,9 @@ class Gol
     const static CellState DEAD = 0;
 
     Gol(int width, int height);
-
     int getNeighbourCount(int x, int y) const;
+
+
 
   private: 
     CellState const& getAt(int x, int y) const;
@@ -20,6 +21,4 @@ class Gol
     MatrixType matrix_;
     CellState getNewState(int x, int y) const;
 };
-
-
 
