@@ -55,7 +55,7 @@ class SampleTest : public CxxTest::TestSuite
     void testFirstGeneration()
     {
 
-      Gol gol( 7, 7 );
+      Gol gol( 5, 5 );
       std::stringstream init;
       init << "....." << std::endl;
       init << "..X.." << std::endl;
@@ -76,11 +76,6 @@ class SampleTest : public CxxTest::TestSuite
            {Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD}};
 
       TS_ASSERT_EQUALS( gol.matrix_, correct_matrix);
-      
-      
-      
-      
-      
     }
 
     void testEvolve()
@@ -94,16 +89,15 @@ class SampleTest : public CxxTest::TestSuite
       init << "....." << std::endl;
       gol.firstGeneration( init );
       TS_ASSERT_EQUALS( true, gol.evolve() );
-      init.str("");
-      
 
+      std::stringstream init2;
       Gol gol2( 5, 5 );
-      init << "....." << std::endl;
-      init << "....." << std::endl;
-      init << ".XXX." << std::endl;
-      init << "....." << std::endl;
-      init << "....." << std::endl;
-      gol.firstGeneration( init );
+      init2 << "....." << std::endl;
+      init2 << "....." << std::endl;
+      init2 << ".XXX." << std::endl;
+      init2 << "....." << std::endl;
+      init2 << "....." << std::endl;
+      gol2.firstGeneration( init2 );
       TS_ASSERT_EQUALS( gol.matrix_, gol2.matrix_ );
     }
     

@@ -58,5 +58,17 @@ CellState Gol::getNewState(int x, int y) const
 
 bool Gol::evolve()
 {
+  MatrixType nextGeneration( matrix_.size(),std::vector<CellState>(matrix_[0].size(), DEAD) );
+
+  for ( size_t x( 0 ); x<matrix_.size(); ++x )
+  {
+    for ( size_t y( 0 ); y < matrix_[x].size(); ++y )
+    {
+      nextGeneration[ x ][ y ] = getNewState( x, y );
+    }
+  }
+
+  matrix_.swap( nextGeneration );
   return true;
 }
+
