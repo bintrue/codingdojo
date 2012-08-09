@@ -18,6 +18,7 @@ class Gol
     CellState const& getAt(int x, int y) const;
     typedef std::vector<std::vector<CellState>> MatrixType;
     MatrixType matrix_;
+    CellState getNewState(int x, int y) const;
 };
 
 

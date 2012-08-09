@@ -26,3 +26,16 @@ int Gol::getNeighbourCount(int i, int j) const
          getAt(i - 1,j + 1);
 }
 
+CellState Gol::getNewState(int x, int y) const
+{
+  /*
+  if( matrix_[x][y] == DEAD )
+  {
+    return (getNeighbourCount(x, y) == 3);
+  }
+  else
+  {
+
+  }*/
+  return DEAD;
+}

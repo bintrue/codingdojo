@@ -24,5 +24,10 @@ class SampleTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( gol.getNeighbourCount(0, 1), 1 );
     }
 
+    void testGetNewState()
+    {
+      Gol gol(10,10);
+      TS_ASSERT_EQUALS( gol.getNewState(0,0), 0 );
+    }
 };
 
