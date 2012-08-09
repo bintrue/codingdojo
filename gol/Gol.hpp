@@ -15,6 +15,7 @@ class Gol
     int getNeighbourCount(int x, int y) const;
 
   private: 
+    CellState const& getAt(int x, int y) const;
     typedef std::vector<std::vector<CellState>> MatrixType;
     MatrixType matrix_;
 };
