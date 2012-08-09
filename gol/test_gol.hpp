@@ -27,7 +27,30 @@ class SampleTest : public CxxTest::TestSuite
     void testGetNewState()
     {
       Gol gol(10,10);
-      TS_ASSERT_EQUALS( gol.getNewState(0,0), 0 );
+      TS_ASSERT_EQUALS( gol.getNewState(0,0), Gol::DEAD );
+
+      gol.matrix_[4][5] = Gol::ALIVE;
+      gol.matrix_[5][4] = Gol::ALIVE;
+
+      TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::DEAD );
+
+      gol.matrix_[6][5] = Gol::ALIVE;
+
+      TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::ALIVE );
+
+      gol.matrix_[6][6] = Gol::ALIVE;
+
+      TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::DEAD );
+
+      gol.matrix_[5][5] = Gol::ALIVE;
+
+      TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::DEAD );
+
+      gol.matrix_[6][6] = Gol::DEAD;
+
+      TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::ALIVE );
+
     }
+
 };
 

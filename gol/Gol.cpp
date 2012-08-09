@@ -28,14 +28,14 @@ int Gol::getNeighbourCount(int i, int j) const
 
 CellState Gol::getNewState(int x, int y) const
 {
-  /*
+  
   if( matrix_[x][y] == DEAD )
   {
-    return (getNeighbourCount(x, y) == 3);
+    return (getNeighbourCount(x, y) == 3)?ALIVE:DEAD;
   }
   else
   {
-
-  }*/
-  return DEAD;
+    return (getNeighbourCount(x,y) == 3 ||
+            getNeighbourCount(x,y) == 2)? ALIVE:DEAD;
+  }
 }
