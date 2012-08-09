@@ -1,5 +1,7 @@
 #include <cxxtest/TestSuite.h>
 
+#define private public
+
 #include "Gol.hpp"
 
 class SampleTest : public CxxTest::TestSuite
@@ -15,11 +17,11 @@ class SampleTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( true, true );
     }
 
-    void testLiveNeighbourCount()
+    void testLiveNeighbourCountWithBoundaries()
     {
       Gol gol(10,10);
-      gol.matrix_[1][3]=1;
-      TS_ASSERT_EQUALS( gol.getNeighbourCount(2, 3), 1 );
+      gol.matrix_[0][0]=1;
+      TS_ASSERT_EQUALS( gol.getNeighbourCount(0, 1), 1 );
     }
 
 };
