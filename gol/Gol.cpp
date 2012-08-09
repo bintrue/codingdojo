@@ -26,6 +26,8 @@ int Gol::getNeighbourCount(int i, int j) const
     getAt(i - 1,j + 1);
 }
 
+void Gol::firstGeneration(std::istream&){}
+
 CellState Gol::getNewState(int x, int y) const
 {
 

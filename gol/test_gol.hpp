@@ -52,8 +52,30 @@ class SampleTest : public CxxTest::TestSuite
       gol.matrix_[4][5] = Gol::DEAD;
       TS_ASSERT_EQUALS( gol.getNewState(5,5), Gol::DEAD);
     }
+    void testFirstGeneration()
+    {
 
-    void testReadFile()
+      Gol gol( 5, 5 );
+      std::stringstream init;
+      init << "....." << std::endl;
+      init << "..X.." << std::endl;
+      init << "..X.." << std::endl;
+      init << "..X.." << std::endl;
+      init << "....." << std::endl;
+      gol.firstGeneration( init );
+      TS_ASSERT_EQUALS( true, init.str().empty() );
+
+      Gol::MatrixType correct_matrix = 
+          {{Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD},
+           {Gol::DEAD, Gol::DEAD, Gol::ALIVE, Gol::DEAD, Gol::DEAD},
+           {Gol::DEAD, Gol::DEAD, Gol::ALIVE, Gol::DEAD, Gol::DEAD},
+           {Gol::DEAD, Gol::DEAD, Gol::ALIVE, Gol::DEAD, Gol::DEAD},
+           {Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD, Gol::DEAD}};
+
+      TS_ASSERT_EQUALS( gol.matrix_, correct_matrix);
+    }
+/*
+    void _testEvolve()
     {
       Gol gol( 5, 5 );
       std::stringstream init;
@@ -64,8 +86,9 @@ class SampleTest : public CxxTest::TestSuite
       init << "....." << std::endl;
       gol.firstGeneration( init );
       TS_ASSERT_EQUALS( true, gol.evolve() );
-
       TS_ASSERT_EQUALS( true, init.str().empty() );
+      
+
       Gol gol2( 5, 5 );
       init << "....." << std::endl;
       init << "....." << std::endl;
@@ -75,10 +98,6 @@ class SampleTest : public CxxTest::TestSuite
       gol.firstGeneration( init );
       TS_ASSERT_EQUALS( gol.matrix_, gol2.matrix_ );
     }
-
-    void testEvolve()
-    {
-    }
-
+    */
 };
 

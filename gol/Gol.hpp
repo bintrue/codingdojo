@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <sstream>
 
 typedef char CellState;
 
@@ -12,7 +13,7 @@ class Gol
 
     Gol(int width, int height);
     int getNeighbourCount(int x, int y) const;
-
+    void firstGeneration(std::istream&);
 
 
   private: 
