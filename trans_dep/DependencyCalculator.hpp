@@ -1,5 +1,9 @@
 #pragma once
+
 #include <istream>
+#include <map>
+#include <vector>
+
 
 class DependencyCalculator
 {
@@ -7,10 +11,10 @@ class DependencyCalculator
     DependencyCalculator( std::istream & );
 
     template<class OutputIterator>
-    void getNodeList( OutputIterator oIt)
+    void getNodeList( OutputIterator )
     {
-      *oIt++ = "A";
-      *oIt = "B";
+//      *oIt++ = "A";
+//      *oIt = "B";
     }
 
     typedef std::string NodeId;
