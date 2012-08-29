@@ -41,5 +41,16 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       TS_ASSERT_EQUALS(dependencies.size(), 1);
       TS_ASSERT_EQUALS(dependencies[0], "B");
     }
+
+    void test_getDependencies_for_non_existing_node()
+    {
+      std::stringstream ss(inBasic);
+
+      DependencyCalculator calc(ss);
+
+      std::vector<NodeId> dependencies;
+      calc.getDependencies("Q", std::back_inserter(dependencies));
+      TS_ASSERT(dependencies.empty());
+    }
 };
 
