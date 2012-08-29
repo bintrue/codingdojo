@@ -53,6 +53,16 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       TS_ASSERT(dependencies.empty());
     }
 
+    bool isBefore(const std::vector<NodeId>& resultNodes,
+                  const NodeId& nodeId,
+                  const std::vector<NodeId>& toCheck ) const
+    {
+      if (resultNodes.end() == resultNodes.find(nodeId))
+      {
+        return true;
+      }
+
+    }
 
     void test_getDependencies_for_complex_graph()
     {
@@ -66,9 +76,11 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       DependencyCalculator calc(ss);
 
       std::vector<NodeId> resultForA;
+      NodeId nodeToCheck = "A";
 
-      calc.getDependencies("A", std::back_inserter(resultForA));
+      calc.getDependencies(nodeToCheck, std::back_inserter(resultForA));
 
+      resultForA.push_back(nodeToCheck);
       TS_ASSERT( isBefore(resultForA, "A", {"B", "C", "D", "E", "F"}));
       TS_ASSERT( isBefore(resultForA, "B", {"D"}));
       TS_ASSERT( isBefore(resultForA, "C", {"B", "D", "E", "F"}));
