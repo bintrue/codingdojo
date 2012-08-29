@@ -1,5 +1,6 @@
 #include <cxxtest/TestSuite.h>
 #include <sstream>
+#include <iterator>
 #include "DependencyCalculator.hpp"
 
 class TestDependencyCalculator : public CxxTest::TestSuite
@@ -22,11 +23,9 @@ class TestDependencyCalculator : public CxxTest::TestSuite
 
 
       DependencyCalculator calc(ss);
-      calc.getNodeList(std::inserter(returnedNodes));
+      calc.getNodeList(std::inserter(returnedNodes, returnedNodes.begin()));
 
       TS_ASSERT_EQUALS(returnedNodes, expectedNodes);
-
     }
-
 };
 

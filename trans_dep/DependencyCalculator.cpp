@@ -1,5 +1,8 @@
 #include "DependencyCalculator.hpp"
 
-DependencyCalculator::DependencyCalculator( std::istream & )
+DependencyCalculator::DependencyCalculator( std::istream &in )
 {
+  while ( std::getline() )
+  {
+  }
 }
