@@ -1,6 +1,7 @@
 #include <cxxtest/TestSuite.h>
 #include <sstream>
 #include <iterator>
+#include <algorithm>
 #include "DependencyCalculator.hpp"
 
 class TestDependencyCalculator : public CxxTest::TestSuite
@@ -57,11 +58,17 @@ class TestDependencyCalculator : public CxxTest::TestSuite
                   const NodeId& nodeId,
                   const std::vector<NodeId>& toCheck ) const
     {
-      if (resultNodes.end() == resultNodes.find(nodeId))
+      auto nodePos = std::find(begin(resultNodes), end(resultNodes), nodeId);
+      if (resultNodes.end() == nodePos)
       {
         return true;
       }
-
+      for (const auto& node : toCheck) {
+        if (nodePos == std::find(resultNodes.begin(), nodePos, node)) {
+          return false;
+        }
+      }
+      return true;
     }
 
     void test_getDependencies_for_complex_graph()
@@ -81,13 +88,19 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       calc.getDependencies(nodeToCheck, std::back_inserter(resultForA));
 
       resultForA.push_back(nodeToCheck);
+      TS_ASSERT( isBefore(resultForA, "A", {"B", "C"}));
+      TS_ASSERT( isBefore(resultForA, "B", {"D"}));
+      TS_ASSERT( isBefore(resultForA, "C", {"E", "F"}));
+      TS_ASSERT( isBefore(resultForA, "E", {"B"}));
+
+/*
       TS_ASSERT( isBefore(resultForA, "A", {"B", "C", "D", "E", "F"}));
       TS_ASSERT( isBefore(resultForA, "B", {"D"}));
       TS_ASSERT( isBefore(resultForA, "C", {"B", "D", "E", "F"}));
       TS_ASSERT( isBefore(resultForA, "D", {}));
       TS_ASSERT( isBefore(resultForA, "E", {"B", "D"}));
       TS_ASSERT( isBefore(resultForA, "F", {}));
-
+*/
     }
 };
 
