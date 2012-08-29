@@ -38,7 +38,7 @@ class DependencyCalculator
       std::vector<NodeId> dependencies( doTheDependecyCalculationPlease( id, beenThere, doneThat ) );
       if (iter!=m_graph.end())
       {
-        std::copy(begin( dependencies ),end( dependencies ),out);
+        std::copy(begin( dependencies ),--end( dependencies ),out);
       }
     }
 

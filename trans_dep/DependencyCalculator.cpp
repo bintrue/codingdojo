@@ -1,5 +1,7 @@
 #include "DependencyCalculator.hpp"
 #include <sstream>
+#include <algorithm>
+#include <stdexcept>
 #include <iterator>
 #include <cassert>
 
@@ -9,14 +11,14 @@ DependencyCalculator::DependencyCalculator( std::istream &in )
   std::string line;
   while ( std::getline(in, line) )
   {
-      std::istringstream ss(line);
-      NodeId id;
-      ss >> id;
-      
-      std::copy(std::istream_iterator<NodeId>(ss), 
-                std::istream_iterator<NodeId>(), 
-                std::back_inserter(m_graph[id])); 
-  
+    std::istringstream ss(line);
+    NodeId id;
+    ss >> id;
+
+    std::copy(std::istream_iterator<NodeId>(ss), 
+        std::istream_iterator<NodeId>(), 
+        std::back_inserter(m_graph[id])); 
+
   }
 }
 
@@ -31,21 +33,22 @@ DependencyCalculator::doTheDependecyCalculationPlease(
     throw std::runtime_error("Circular dependency detected");
   }
   auto deps = m_graph.find(nodeId);
-  if (m_graph.end() == deps)
-  {
-    return {};
-  }
-  beenThere.push_front(nodeId);
   std::vector<NodeId> returnDeps;
-  for ( const auto& dep : deps->second){
-    if (beenThere.end() == doneThat.find(nodeId))
-    {
-      returnDeps.append( doTheDependecyCalculationPlease( dep, beenThere, doneThat ));
+  if (m_graph.end() != deps)
+  {
+    beenThere.push_front(nodeId);
+    for ( const auto& dep : deps->second){
+      if (doneThat.end() == doneThat.find(dep))
+      {
+        std::vector<NodeId> childDeps = doTheDependecyCalculationPlease( dep, beenThere, doneThat );
+        std::copy(childDeps.begin(), childDeps.end(), std::back_inserter(returnDeps));
+      }
     }
+    assert(beenThere.front() == nodeId);
+    beenThere.pop_front();
   }
-  assert(beenThere.front() == nodeId);
-  beenThere.pop_front();
   doneThat.insert(nodeId);
-  return {};
+  returnDeps.push_back(nodeId);
+  return returnDeps; 
 }
 

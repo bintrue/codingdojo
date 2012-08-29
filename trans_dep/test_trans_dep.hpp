@@ -77,7 +77,7 @@ class TestDependencyCalculator : public CxxTest::TestSuite
                               "B D\n"
                               "C E F\n"
                               "E B\n";
-
+      
       std::stringstream ss(complexIn);
 
       DependencyCalculator calc(ss);
@@ -86,21 +86,46 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       NodeId nodeToCheck = "A";
 
       calc.getDependencies(nodeToCheck, std::back_inserter(resultForA));
-
       resultForA.push_back(nodeToCheck);
+      std::copy(resultForA.begin(),resultForA.end(),std::ostream_iterator<NodeId>(std::cout,","));
       TS_ASSERT( isBefore(resultForA, "A", {"B", "C"}));
       TS_ASSERT( isBefore(resultForA, "B", {"D"}));
       TS_ASSERT( isBefore(resultForA, "C", {"E", "F"}));
       TS_ASSERT( isBefore(resultForA, "E", {"B"}));
 
-/*
+
       TS_ASSERT( isBefore(resultForA, "A", {"B", "C", "D", "E", "F"}));
       TS_ASSERT( isBefore(resultForA, "B", {"D"}));
       TS_ASSERT( isBefore(resultForA, "C", {"B", "D", "E", "F"}));
       TS_ASSERT( isBefore(resultForA, "D", {}));
       TS_ASSERT( isBefore(resultForA, "E", {"B", "D"}));
       TS_ASSERT( isBefore(resultForA, "F", {}));
-*/
     }
+
+  void test_getDependencies_fail_for_trivial_cyclic_dependencies()
+  {
+      std::string trivialCyclic= "A A"; 
+
+      std::stringstream ss(trivialCyclic);
+
+      DependencyCalculator calc(ss);
+      NodeId nodeToCheck = "A";
+      TS_ASSERT_THROWS(calc.getDependencies(nodeToCheck, std::ostream_iterator<NodeId>(std::cout)),std::runtime_error);
+  }
+
+  void test_getDependencies_fail_for_nontrivial_cyclic_dependencies()
+  {
+      std::string cyclicDep= "A B C\n" 
+                              "B D\n"
+                              "C E F\n"
+                              "E B\n"
+                              "E A\n";
+
+      std::stringstream ss(cyclicDep);
+
+      DependencyCalculator calc(ss);
+      NodeId nodeToCheck = "A";
+      TS_ASSERT_THROWS(calc.getDependencies(nodeToCheck, std::ostream_iterator<NodeId>(std::cout)),std::runtime_error);
+  }
 };
 
