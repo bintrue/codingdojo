@@ -17,6 +17,15 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       std::string in = "A B";
       std::stringstream ss(in);
 
+      std::set<DependencyCalculator::NodeId> returnedNodes;
+      std::set<DependencyCalculator::NodeId> expectedNodes{"A", "B"};
+
+
+      DependencyCalculator calc(ss);
+      calc.getNodeList(std::inserter(returnedNodes));
+
+      TS_ASSERT_EQUALS(returnedNodes, expectedNodes);
+
     }
 
 };
