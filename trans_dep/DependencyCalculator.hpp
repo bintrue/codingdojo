@@ -12,7 +12,7 @@ class DependencyCalculator
     DependencyCalculator( std::istream & );
 
     template<class OutputIterator>
-    void getNodeList( OutputIterator output )
+    void getNodeList( OutputIterator output ) const
     {
       std::set<NodeId> nodeList;
       for ( const auto& i : m_graph )
@@ -24,6 +24,12 @@ class DependencyCalculator
       }
 
       std::copy( nodeList.begin(), nodeList.end(), output );
+    }
+    
+    template <class OutputIterator>
+    void getDependencies(const NodeId& id, OutputIterator out) const
+    {
+      
     }
 
     typedef std::string NodeId;

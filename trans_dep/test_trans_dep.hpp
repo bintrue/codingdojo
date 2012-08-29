@@ -6,19 +6,19 @@
 class TestDependencyCalculator : public CxxTest::TestSuite
 {
   private:
+    std::string inBasic = "A B";
 
   public:
+    typedef DependencyCalculator::NodeId NodeId;
     void test_it_should_be_created_by_its_ctor()
     {
-      std::string in = "A B";
-      std::stringstream ss(in);
+      std::stringstream ss(inBasic);
       DependencyCalculator calc(ss);
     }
 
     void test_getNodeList_should_return_the_nodes()
     {
-      std::string in = "A B";
-      std::stringstream ss(in);
+      std::stringstream ss(inBasic);
 
       std::set<DependencyCalculator::NodeId> returnedNodes;
       std::set<DependencyCalculator::NodeId> expectedNodes{"A", "B"};
@@ -28,6 +28,18 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       calc.getNodeList(std::inserter(returnedNodes, returnedNodes.begin()));
 
       TS_ASSERT_EQUALS(returnedNodes, expectedNodes);
+    }
+    
+    void test_getDependencies()
+    {
+      std::stringstream ss(inBasic);
+
+      DependencyCalculator calc(ss);
+
+      std::vector<NodeId> dependencies;
+      calc.getDependencies("A", std::back_inserter(dependencies));
+      TS_ASSERT_EQUALS(dependencies.size(), 1);
+      TS_ASSERT_EQUALS(dependencies[0], "B");
     }
 };
 
