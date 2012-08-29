@@ -5,6 +5,8 @@
 
 class TestDependencyCalculator : public CxxTest::TestSuite
 {
+  private:
+
   public:
     void test_it_should_be_created_by_its_ctor()
     {
