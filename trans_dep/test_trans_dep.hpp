@@ -52,5 +52,30 @@ class TestDependencyCalculator : public CxxTest::TestSuite
       calc.getDependencies("Q", std::back_inserter(dependencies));
       TS_ASSERT(dependencies.empty());
     }
+
+
+    void test_getDependencies_for_complex_graph()
+    {
+      std::string complexIn = "A B C\n" 
+                              "B D\n"
+                              "C E F\n"
+                              "E B\n";
+
+      std::stringstream ss(complexIn);
+
+      DependencyCalculator calc(ss);
+
+      std::vector<NodeId> resultForA;
+
+      calc.getDependencies("A", std::back_inserter(resultForA));
+
+      TS_ASSERT( isBefore(resultForA, "A", {"B", "C", "D", "E", "F"}));
+      TS_ASSERT( isBefore(resultForA, "B", {"D"}));
+      TS_ASSERT( isBefore(resultForA, "C", {"B", "D", "E", "F"}));
+      TS_ASSERT( isBefore(resultForA, "D", {}));
+      TS_ASSERT( isBefore(resultForA, "E", {"B", "D"}));
+      TS_ASSERT( isBefore(resultForA, "F", {}));
+
+    }
 };
 

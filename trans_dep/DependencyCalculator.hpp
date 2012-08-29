@@ -32,7 +32,7 @@ class DependencyCalculator
     void getDependencies(const NodeId& id, OutputIterator out) const
     {
       Graph::const_iterator iter=m_graph.find(id);
-      //if (iter!=m_graph.end())
+      if (iter!=m_graph.end())
       {
         std::copy(iter->second.begin(),iter->second.end(),out);
       }
