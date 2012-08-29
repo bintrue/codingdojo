@@ -5,6 +5,7 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <deque>
 
 
 class DependencyCalculator
@@ -32,14 +33,19 @@ class DependencyCalculator
     void getDependencies(const NodeId& id, OutputIterator out) const
     {
       Graph::const_iterator iter=m_graph.find(id);
+      std::deque<NodeId> beenThere;
+      std::set<NodeId> doneThat;
+      std::vector<NodeId> dependencies( doTheDependecyCalculationPlease( id, beenThere, doneThat ) );
       if (iter!=m_graph.end())
       {
-        std::copy(iter->second.begin(),iter->second.end(),out);
+        std::copy(begin( dependencies ),end( dependencies ),out);
       }
     }
 
-
   private:
+    std::vector<NodeId> doTheDependecyCalculationPlease(
+        const NodeId& nodeId, std::deque<NodeId>& beenThere, std::set<NodeId>& doneThat ) const;
+
     typedef std::map<NodeId,std::vector<NodeId>> Graph;
 
     Graph m_graph;

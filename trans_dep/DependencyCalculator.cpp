@@ -18,3 +18,13 @@ DependencyCalculator::DependencyCalculator( std::istream &in )
   
   }
 }
+
+std::vector<DependencyCalculator::NodeId>
+DependencyCalculator::doTheDependecyCalculationPlease(
+    const NodeId& nodeId,
+    std::deque<NodeId>& beenThere,
+    std::set<NodeId>& doneThat ) const
+{
+  return {};
+}
+
