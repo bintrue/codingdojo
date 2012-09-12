@@ -5,6 +5,7 @@
 #include "Board.hpp"
 
 using sudoku::Board;
+using sudoku::Solver;
 
 class SudokuBoardTest : public CxxTest::TestSuite
 {
@@ -45,6 +46,14 @@ class SudokuBoardTest : public CxxTest::TestSuite
     {
       std::vector<Board::CellType> vec{0, 1, 2, 3,  11, 12, 13, 14,  21, 22, 23, 24,  31, 32, 33, 34};
       TS_ASSERT_THROWS(Board(vec.begin(), vec.end(), 2, 2), Board::InvalidValueException);
+    }
+    
+    void test_solverxyz()
+    {
+      Board::CellType brd[] = { 1 };
+      Solver sol(Board(&brd[0], &brd[1], 1, 1));
+
+      TS_ASSERT(sol.solve());
     }
 };
 
