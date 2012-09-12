@@ -3,13 +3,16 @@
 #include <unistd.h>
 #include <vector>
 #include <stdexcept>
-#include <sstream>
+#include <algorithm>
 
 namespace sudoku
 {
   class Board
   {
     public:
+      class InvalidSizeException {};
+      class InvalidValueException {};
+      
       typedef int CellType;
 
       template <class InputIterator>
@@ -32,13 +35,17 @@ namespace sudoku
     , m_height{ height }
     , m_board(first, last)
   {
-    std::cout << "boardsize: " << m_board.size() << std::endl;
-    if (m_board.size() != size() * size()) {
-      std::ostringstream ss;
-      ss << "Invalid input size: " << m_board.size();
-      throw std::runtime_error(ss.str());
+    if (m_board.size() != size() * size()) 
+    {
+      throw InvalidSizeException();
+    }
+    bool allOf{std::all_of(begin(m_board), end(m_board), [this](CellType value)
+                                                         {return value <= CellType(this->size());})
+              };
+    if (!allOf)
+    {
+      throw InvalidValueException();
     }
   }
-  
 }
 

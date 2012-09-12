@@ -13,16 +13,15 @@ class SudokuBoardTest : public CxxTest::TestSuite
     {
     }
 
-
     void test_board_can_be_properly_initialized_with_input_iterator()
     {
-      std::stringstream sstr("3");
+      std::stringstream sstr("1");
       std::istream_iterator<Board::CellType> last;
       Board testBoard{std::istream_iterator<Board::CellType>(sstr),last,1,1};
       TS_ASSERT_EQUALS( testBoard.size(), 1 );
-      TS_ASSERT_EQUALS( testBoard(0,0), 3 );
-      
-      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  11, 12, 13, 14,  21, 22, 23, 24,  31, 32, 33, 34};
+      TS_ASSERT_EQUALS( testBoard(0,0), 1 );
+
+      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  1, 2, 3, 4,  1, 2, 3, 4,  1, 2, 3, 4};
       Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
       TS_ASSERT_EQUALS( testBoardBig.size(), 4 );
       TS_ASSERT_EQUALS( testBoardBig(3,0), 3 );
@@ -36,10 +35,16 @@ class SudokuBoardTest : public CxxTest::TestSuite
       }
 
       std::stringstream sstrThrowLess("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0");
-      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowLess),last,2,2), std::runtime_error);
+      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowLess),last,2,2), Board::InvalidSizeException);
 
-      std::stringstream sstrThrowMore("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 3 1234567890");
-      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowMore),last,2,2), std::runtime_error);
+      std::stringstream sstrThrowMore("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 3 1234467670");
+      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowMore),last,2,2), Board::InvalidSizeException);
+    }
+
+    void test_board_can_only_be_initialized_with_valid_values()
+    {
+      std::vector<Board::CellType> vec{0, 1, 2, 3,  11, 12, 13, 14,  21, 22, 23, 24,  31, 32, 33, 34};
+      TS_ASSERT_THROWS(Board(vec.begin(), vec.end(), 2, 2), Board::InvalidValueException);
     }
 };
 
