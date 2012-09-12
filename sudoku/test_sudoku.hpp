@@ -19,6 +19,11 @@ class SudokuBoardTest : public CxxTest::TestSuite
       std::stringstream sstr("0");
       Board testBoard{std::istream_iterator<Board::CellType>(sstr),1,1};
       TS_ASSERT_EQUALS( testBoard.size(), 1 );
+      TS_ASSERT_EQUALS( testBoard(0,0), 0 );
+      
+      sstr.str("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 0");
+      Board testBoardBig{std::istream_iterator<Board::CellType>(sstr),2,2};
+      TS_ASSERT_EQUALS( testBoard(3,0), 3 );
     }
 
 
