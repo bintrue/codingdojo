@@ -22,12 +22,16 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( testBoard.size(), 1 );
       TS_ASSERT_EQUALS( testBoard(0,0), 3 );
       
-      sstr.str("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 0");
-      Board testBoardBig{std::istream_iterator<Board::CellType>(sstr),last,2,2};
+      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  11, 12, 13, 14,  21, 22, 23, 24,  31, 32, 33, 34};
+      Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
       TS_ASSERT_EQUALS( testBoardBig.size(), 4 );
       TS_ASSERT_EQUALS( testBoardBig(3,0), 3 );
+
+      std::stringstream sstrThrowLess("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0");
+      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowLess),last,2,2), std::runtime_error);
+
+      std::stringstream sstrThrowMore("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 3 1234567890");
+      TS_ASSERT_THROWS(Board(std::istream_iterator<Board::CellType>(sstrThrowMore),last,2,2), std::runtime_error);
     }
-
-
 };
 
