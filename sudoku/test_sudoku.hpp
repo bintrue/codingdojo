@@ -16,14 +16,16 @@ class SudokuBoardTest : public CxxTest::TestSuite
 
     void test_board_can_be_properly_initialized_with_input_iterator()
     {
-      std::stringstream sstr("0");
-      Board testBoard{std::istream_iterator<Board::CellType>(sstr),1,1};
+      std::stringstream sstr("3");
+      std::istream_iterator<Board::CellType> last;
+      Board testBoard{std::istream_iterator<Board::CellType>(sstr),last,1,1};
       TS_ASSERT_EQUALS( testBoard.size(), 1 );
-      TS_ASSERT_EQUALS( testBoard(0,0), 0 );
+      TS_ASSERT_EQUALS( testBoard(0,0), 3 );
       
       sstr.str("0 1 2 3  0 0 0 0  0 0 0 0  0 0 0 0");
-      Board testBoardBig{std::istream_iterator<Board::CellType>(sstr),2,2};
-      TS_ASSERT_EQUALS( testBoard(3,0), 3 );
+      Board testBoardBig{std::istream_iterator<Board::CellType>(sstr),last,2,2};
+      TS_ASSERT_EQUALS( testBoardBig.size(), 4 );
+      TS_ASSERT_EQUALS( testBoardBig(3,0), 3 );
     }
 
 

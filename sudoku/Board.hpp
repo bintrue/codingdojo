@@ -2,6 +2,9 @@
 
 #include <unistd.h>
 #include <vector>
+#include <iostream>
+#include <stdexcept>
+#include <sstream>
 
 namespace sudoku
 {
@@ -11,7 +14,7 @@ namespace sudoku
       typedef int CellType;
 
       template <class InputIterator>
-      Board( InputIterator input, size_t width, size_t height );
+      Board( InputIterator first, InputIterator last, size_t width, size_t height );
 
       size_t size() const;
       CellType& operator()(size_t x, size_t y);
@@ -25,14 +28,16 @@ namespace sudoku
 
 
   template <class InputIterator>
-  Board::Board( InputIterator input, size_t width, size_t height )
+  Board::Board( InputIterator first, InputIterator last, size_t width, size_t height )
     : m_width{ width }
     , m_height{ height }
-    , m_board{int(size()*size())}
+    , m_board(first, last)
   {
-    for(size_t i=0; i<m_board.size(); ++i)
-    {
-      m_board[i]=*input++;
+    std::cout << "boardsize: " << m_board.size() << std::endl;
+    if (m_board.size() != size() * size()) {
+      std::ostringstream ss;
+      ss << "Invalid input size: " << m_board.size();
+      throw std::runtime_error(ss.str());
     }
   }
   
