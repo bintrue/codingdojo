@@ -67,6 +67,14 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS(testBoardBig.getColumn(1), (Board::CellContainer{1, 2, 4, 4}));
     }
 
+    void test_board_getBox_function_works()
+    {
+      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  2, 2, 1, 1,  1, 4, 3, 2,  4, 4, 4, 4};
+
+      Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
+      TS_ASSERT_EQUALS(testBoardBig.getBox(1), (Board::CellContainer{2, 3, 1, 1}));
+    }
+
 
     void _test_if_board_is_valid()
     {
