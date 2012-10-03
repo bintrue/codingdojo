@@ -98,7 +98,57 @@ class SudokuBoardTest : public CxxTest::TestSuite
       Board bigBoard(&brd2[0], &brd2[81], 3, 3);
       TS_ASSERT( bigBoard.isValid() );
 
-    }
+      Board::CellType brd_ok[] =
+      { 0, 4, 3, 0, 0, 0, 2, 7, 0,
+        2, 0, 0, 0, 0, 0, 0, 9, 0,
+        0, 9, 0, 0, 0, 5, 0, 6, 0,
+        0, 0, 2, 6, 9, 0, 0, 0, 0,
+        0, 0, 8, 0, 5, 0, 0, 0, 0,
+        0, 0, 1, 7, 4, 0, 0, 0, 9,
+        0, 7, 0, 0, 0, 1, 0, 0, 4,
+        0, 0, 0, 0, 0, 0, 0, 2, 0,
+        5, 2, 0, 0, 0, 6, 3, 0, 8};
+      Board board_ok(&brd_ok[0], &brd_ok[81], 3, 3);
+      TS_ASSERT( board_ok.isValid() );
 
+      Board::CellType brd_row_error[] =
+      { 0, 4, 3, 0, 0, 0, 2, 7, 0,
+        2, 0, 0, 0, 0, 0, 0, 9, 0,
+        0, 9, 0, 0, 0, 5, 0, 6, 0,
+        0, 0, 2, 6, 9, 0, 0, 0, 0,
+        0, 0, 8, 0, 5, 0, 0, 0, 0,
+        0, 0, 1, 7, 4, 0, 0, 0, 9,
+        0, 7, 0, 0, 0, 1, 0, 0, 4,
+        0, 0, 0, 0, 0, 0, 0, 2, 0,
+        5, 2, 2, 0, 0, 6, 3, 0, 8};
+      Board board_row_error(& brd_row_error[0], & brd_row_error[81], 3, 3);
+      TS_ASSERT( !board_row_error.isValid() );
+
+      Board::CellType brd_column_error[] =
+      { 0, 4, 3, 0, 0, 0, 2, 7, 0,
+        2, 0, 0, 0, 0, 0, 0, 9, 0,
+        0, 9, 0, 0, 0, 5, 0, 6, 0,
+        0, 0, 2, 6, 9, 0, 0, 0, 0,
+        0, 0, 8, 0, 5, 0, 0, 0, 0,
+        0, 0, 1, 7, 4, 0, 0, 0, 9,
+        0, 7, 0, 0, 0, 1, 0, 0, 4,
+        0, 2, 0, 0, 0, 0, 0, 2, 0,
+        5, 2, 0, 0, 0, 6, 3, 0, 8};
+      Board board_column_error(& brd_column_error[0], & brd_column_error[81], 3, 3);
+      TS_ASSERT( !board_column_error.isValid() );
+
+      Board::CellType brd_group_error[] =
+      { 0, 4, 3, 0, 0, 0, 2, 7, 0,
+        2, 0, 0, 0, 0, 0, 0, 9, 0,
+        0, 9, 0, 0, 0, 5, 0, 6, 0,
+        0, 0, 2, 6, 9, 0, 0, 0, 0,
+        0, 0, 8, 0, 5, 0, 0, 0, 0,
+        0, 0, 1, 7, 4, 0, 0, 0, 9,
+        0, 7, 0, 0, 0, 1, 0, 0, 4,
+        2, 0, 0, 0, 0, 0, 0, 2, 0,
+        5, 2, 0, 0, 0, 6, 3, 0, 8};
+      Board board_group_error(& brd_group_error[0], & brd_group_error[81], 3, 3);
+      TS_ASSERT( !board_group_error.isValid() );
+    }
 };
 
