@@ -83,6 +83,8 @@ class SudokuBoardTest : public CxxTest::TestSuite
     void test_board_CellContainer_isValid()
     {
       TS_ASSERT(Board::isValid(Board::CellContainer{0, 1, 2, 3}));
+      TS_ASSERT(Board::isValid(Board::CellContainer{0, 0, 0, 0}));
+      TS_ASSERT(Board::isValid(Board::CellContainer{1, 2, 3, 4}));
       TS_ASSERT(!Board::isValid(Board::CellContainer{0, 2, 2, 3}));
     }
 

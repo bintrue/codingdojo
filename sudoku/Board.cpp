@@ -70,8 +70,19 @@ namespace sudoku
                   (box / m_height) * (m_height));
   }
   
-  bool Board::isValid(CellContainer const & cell)
+  bool Board::isValid(CellContainer const & group)
   {
+    std::vector<int> count(group.size(),0);
+    for(auto cell:group)
+    {
+      if (cell!=0) 
+      {
+        if (count[cell-1]++ >0 )
+        {
+          return false;
+        }
+      }
+    }
     return true;
   }
 }
