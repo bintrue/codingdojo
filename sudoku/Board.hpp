@@ -26,9 +26,11 @@ namespace sudoku
 
     private:
       typedef std::vector<CellType> CellContainer;
-      CellContainer getRow(int row) const;
-      CellContainer getColumn(int column) const;
-      CellContainer getBox(int box) const;
+      CellContainer getRow(size_t row) const;
+      CellContainer getColumn(size_t column) const;
+      CellContainer getRow(size_t x, size_t y) const;
+      CellContainer getColumn(size_t x, size_t y) const;
+      CellContainer getBox(size_t box) const;
 
       size_t m_width;
       size_t m_height;

@@ -20,12 +20,17 @@ namespace sudoku
     return false; 
   }
 
-  Board::CellContainer Board::getRow(int row) const
+  Board::CellContainer Board::getRow(size_t x, size_t y) const
+  {
+    return CellContainer(m_board.begin()+size()*y,m_board.begin()+size()*(y+1));
+  }
+
+  Board::CellContainer Board::getRow(size_t row) const
   {
     return CellContainer(m_board.begin()+size()*row,m_board.begin()+size()*(row+1));
   }
 
-  Board::CellContainer Board::getColumn(int col) const
+  Board::CellContainer Board::getColumn(size_t col) const
   {
     CellContainer ret;
     ret.reserve(size());
@@ -36,7 +41,7 @@ namespace sudoku
     return ret;
   }
 
-  Board::CellContainer Board::getBox(int box) const
+  Board::CellContainer Board::getBox(size_t box) const
   {
     CellContainer ret;
     ret.reserve(size());
