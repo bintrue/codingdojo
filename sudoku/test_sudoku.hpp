@@ -1,11 +1,12 @@
 #include <cxxtest/TestSuite.h>
 #include <sstream>
 #include <iterator>
-
+#define private public 
 #include "Board.hpp"
+#undef private
+
 
 using sudoku::Board;
-using sudoku::Solver;
 
 class SudokuBoardTest : public CxxTest::TestSuite
 {
@@ -48,12 +49,31 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_THROWS(Board(vec.begin(), vec.end(), 2, 2), Board::InvalidValueException);
     }
     
-    void test_solverxyz()
+
+    void test_board_getRow_function_works()
+    {
+      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  2, 2, 1, 1,  1, 4, 3, 2,  4, 4, 4, 4};
+
+      Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
+      TS_ASSERT_EQUALS(testBoardBig.getRow(1), (Board::CellContainer{2, 2, 1, 1}));
+      TS_ASSERT_EQUALS(testBoardBig.getRow(0), (Board::CellContainer{0, 1, 2, 3}));
+    }
+
+    void test_board_getColumn_function_works()
+    {
+      std::vector<Board::CellType> sstrBig{0, 1, 2, 3,  2, 2, 1, 1,  1, 4, 3, 2,  4, 4, 4, 4};
+
+      Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
+      TS_ASSERT_EQUALS(testBoardBig.getColumn(1), (Board::CellContainer{1, 2, 4, 4}));
+    }
+
+
+    void _test_if_board_is_valid()
     {
       Board::CellType brd[] = { 1 };
-      Solver sol(Board(&brd[0], &brd[1], 1, 1));
-
-      TS_ASSERT(sol.solve());
+      Board easyBoard(&brd[0], &brd[1], 1, 1);
+      TS_ASSERT( easyBoard.isValid() );
     }
+
 };
 
