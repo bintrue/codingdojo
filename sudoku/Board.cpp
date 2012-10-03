@@ -20,14 +20,18 @@ namespace sudoku
     return false; 
   }
 
-  Board::CellContainer Board::getRow(size_t x, size_t y) const
+  Board::CellContainer Board::getRow(size_t, size_t y) const
   {
-    return CellContainer(m_board.begin()+size()*y,m_board.begin()+size()*(y+1));
+    return getRow(y);
   }
 
   Board::CellContainer Board::getRow(size_t row) const
   {
     return CellContainer(m_board.begin()+size()*row,m_board.begin()+size()*(row+1));
+  }
+  Board::CellContainer Board::getColumn(size_t x, size_t) const
+  {
+    return getColumn(x);
   }
 
   Board::CellContainer Board::getColumn(size_t col) const
