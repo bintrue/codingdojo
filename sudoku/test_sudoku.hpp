@@ -76,9 +76,15 @@ class SudokuBoardTest : public CxxTest::TestSuite
 
       Board testBoardBig{sstrBig.begin(),sstrBig.end(),2,2};
       TS_ASSERT_EQUALS(testBoardBig.getBox(1), (Board::CellContainer{2, 3, 1, 1}));
-//      TS_ASSERT_EQUALS(testBoardBig.getBox(1,1), (Board::CellContainer{2, 3, 1, 1}));
+      TS_ASSERT_EQUALS(testBoardBig.getBox(1,1), (Board::CellContainer{0, 1, 2, 2}));
     }
 
+
+    void test_board_CellContainer_isValid()
+    {
+      TS_ASSERT(Board::isValid(Board::CellContainer{0, 1, 2, 3}));
+      TS_ASSERT(!Board::isValid(Board::CellContainer{0, 2, 2, 3}));
+    }
 
     void _test_if_board_is_valid()
     {

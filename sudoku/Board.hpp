@@ -31,7 +31,9 @@ namespace sudoku
       CellContainer getRow(size_t x, size_t y) const;
       CellContainer getColumn(size_t x, size_t y) const;
       CellContainer getBox(size_t box) const;
+      CellContainer getBox(size_t x, size_t y) const;
 
+      static bool isValid(CellContainer const & cell);
       size_t m_width;
       size_t m_height;
       CellContainer m_board;

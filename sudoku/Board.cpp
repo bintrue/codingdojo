@@ -45,21 +45,34 @@ namespace sudoku
     return ret;
   }
 
-  Board::CellContainer Board::getBox(size_t box) const
+  Board::CellContainer Board::getBox(size_t x, size_t y) const
   {
     CellContainer ret;
     ret.reserve(size());
-    
-    int topLeft = (box % m_height) * m_width + (box / m_height) * (m_height * size());
+   
+    x -= x % m_width;
+    y -= y % m_height;
+
     for (auto i(0u); i < m_height; ++i)
     {
-      std::copy(m_board.begin() + topLeft + i * size(),
-    		m_board.begin() + topLeft + i * size() + m_width,
+      std::copy(m_board.begin() + x + (i + y)* size(),
+    		m_board.begin() + x + (i + y) * size() + m_width,
     		std::back_inserter(ret));
     }
     
     return ret;
   }
 
+
+  Board::CellContainer Board::getBox(size_t box) const
+  {
+    return getBox((box % m_height) * m_width, 
+                  (box / m_height) * (m_height));
+  }
+  
+  bool Board::isValid(CellContainer const & cell)
+  {
+    return true;
+  }
 }
 
