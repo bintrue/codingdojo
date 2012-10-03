@@ -17,7 +17,16 @@ namespace sudoku
 
   bool Board::isValid() const
   {
-    return false; 
+    for (auto i = 0u; i != size(); ++i)
+    {
+      if ( !isValid(getRow(i)) ||
+           !isValid(getColumn(i)) ||
+           !isValid(getBox(i)) )
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   Board::CellContainer Board::getRow(size_t, size_t y) const
@@ -75,12 +84,9 @@ namespace sudoku
     std::vector<int> count(group.size(),0);
     for(auto cell:group)
     {
-      if (cell!=0) 
+      if (cell!=0 && count[cell-1]++ >0 )
       {
-        if (count[cell-1]++ >0 )
-        {
-          return false;
-        }
+        return false;
       }
     }
     return true;

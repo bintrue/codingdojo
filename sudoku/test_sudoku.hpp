@@ -88,11 +88,16 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT(!Board::isValid(Board::CellContainer{0, 2, 2, 3}));
     }
 
-    void _test_if_board_is_valid()
+    void test_if_board_is_valid()
     {
       Board::CellType brd[] = { 1 };
       Board easyBoard(&brd[0], &brd[1], 1, 1);
       TS_ASSERT( easyBoard.isValid() );
+
+      Board::CellType brd2[] = {0, 4, 3, 0, 0, 0, 2, 7, 0, 8, 0, 0, 0, 0, 0, 0, 0, 9, 2, 0, 9, 0, 0, 0, 5, 0, 6, 0, 0, 0, 2, 6, 9, 0, 0, 0, 0, 0, 0, 8, 0, 5, 0, 0, 0, 0, 0, 0, 1, 7, 4, 0, 0, 0, 9, 0, 7, 0, 0, 0, 1, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0, 5, 2, 0, 0, 0, 6, 3, 0};
+      Board bigBoard(&brd2[0], &brd2[81], 3, 3);
+      TS_ASSERT( bigBoard.isValid() );
+
     }
 
 };
