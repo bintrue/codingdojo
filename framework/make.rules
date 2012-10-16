@@ -1,4 +1,4 @@
-CXXFLAGS+=-Wall -pedantic -Werror -ftest-coverage -fprofile-arcs -std=c++11
+CXXFLAGS+=-Wall -pedantic -Werror -Wextra -ftest-coverage -fprofile-arcs -std=c++11
 CXX=g++
 
 RELATIVE_FRAMEWORK=../framework
