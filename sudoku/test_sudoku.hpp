@@ -152,6 +152,14 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT( !board_group_error.isValid() );
     }
 
+    void test_if_board_is_solved()
+    {
+      Board::CellType brd[] = {1, 2, 2, 1};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      TS_ASSERT(board.isSolved());
+    }
+
     void test_solver_is_able_to_solve_1x1_board()
     {
       Board::CellType brd[] = { 0};
@@ -196,6 +204,7 @@ class SudokuBoardTest : public CxxTest::TestSuite
 
       sudoku::Solver solver(board);
       TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
+      TS_ASSERT(board.isSolved());
     }
 
     void test_solver_deals_with_another_board()
@@ -223,15 +232,9 @@ class SudokuBoardTest : public CxxTest::TestSuite
     void test_solver_bigger_table_ok_case()
     {
       Board::CellType brd_ok[] =
-      { 0, 4, 3, 0, 0, 0, 2, 7, 0,
-        2, 0, 0, 0, 0, 0, 0, 9, 0,
-        0, 9, 0, 0, 0, 5, 0, 6, 0,
-        0, 0, 2, 6, 9, 0, 0, 0, 0,
-        0, 0, 8, 0, 5, 0, 0, 0, 0,
-        0, 0, 1, 7, 4, 0, 0, 0, 9,
-        0, 7, 0, 0, 0, 1, 0, 0, 4,
-        0, 0, 0, 0, 0, 0, 0, 2, 0,
-        5, 2, 0, 0, 0, 6, 3, 0, 8};
+      {
+  0, 4, 3, 0, 0, 0, 2, 7, 0, 8, 0, 0, 0, 0, 0, 0, 0, 9, 2, 0, 9, 0, 0, 0, 5, 0, 6, 0, 0, 0, 2, 6, 9, 0, 0, 0, 0, 0, 0, 8, 0, 5, 0, 0, 0, 0, 0, 0, 1, 7, 4, 0, 0, 0, 9, 0, 7, 0, 0, 0, 1, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0, 5, 2, 0, 0, 0, 6, 3, 0 
+      };
       Board board(&brd_ok[0], &brd_ok[81], 3, 3);
       sudoku::Solver solver(board);
       TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());

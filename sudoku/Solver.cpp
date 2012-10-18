@@ -1,5 +1,5 @@
 #include <cassert>
-
+#include <iostream>
 #include "Solver.hpp"
 
 namespace sudoku
@@ -76,6 +76,8 @@ bool Solver::stepBack()
 {
   assert( ! m_stateStack.empty() );
   m_stateStack.pop();
+  std::cout<<m_stateStack.size()<<" ";
+  if (m_stateStack.size()==1) std::cout<<std::endl;
   return !m_stateStack.empty();
 }
 
