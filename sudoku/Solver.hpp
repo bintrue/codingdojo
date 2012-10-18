@@ -19,6 +19,8 @@ namespace sudoku
 
   private:
     Board& m_board;
+    typedef std::tuple<std::size_t,std::size_t> Coordinate;
+    typedef std::stack< Coordinate > m_stateStack;
 
     bool nextValue();
     bool stepForward();
