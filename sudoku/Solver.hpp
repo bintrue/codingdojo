@@ -14,9 +14,12 @@ namespace sudoku
       MULTIPLE_SOLUTION
     };
 
-    Result solve(Board&);
+    Solver(Board& board);
+    Result solve();
 
   private:
+    Board& m_board;
+
     bool nextValue();
     bool stepForward();
     bool stepBack();

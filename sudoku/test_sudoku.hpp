@@ -154,19 +154,20 @@ class SudokuBoardTest : public CxxTest::TestSuite
 
     void test_solver_is_able_to_solve_1x1_board()
     {
-      sudoku::Solver solver;
       Board::CellType brd[] = { 0};
       Board board(&brd[0], &brd[1], 1, 1);
-      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve(board));
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
       TS_ASSERT_EQUALS(board(0,0), 1);
     }
 
     void test_solver_is_able_to_solve_1x2_board()
     {
-      sudoku::Solver solver;
       Board::CellType brd[] = {0, 1, 1, 2};
       Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
-      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve(board));
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
       TS_ASSERT_EQUALS(board(0,0), 2);
     }
 };
