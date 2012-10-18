@@ -210,5 +210,14 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS(board(0,1), 1);
       TS_ASSERT_EQUALS(board(1,1), 2);
     }
+
+    void test_solver_deals_with_unsolvable_board()
+    {
+      Board::CellType brd[] = {1, 0, 0, 2};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::INVALID, solver.solve());
+    }
 };
 

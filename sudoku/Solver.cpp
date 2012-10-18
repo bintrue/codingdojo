@@ -35,7 +35,7 @@ Solver::Result Solver::solve()
     }
   }
   while(stepBack());
-  return Result::SUCCESS;
+  return Result::INVALID;
 }
 
 
@@ -74,7 +74,9 @@ bool Solver::stepForward()
 
 bool Solver::stepBack()
 {
-  assert(0 == 1);
+  assert( ! m_stateStack.empty() );
+  m_stateStack.pop();
+  return !m_stateStack.empty();
 }
 
 }
