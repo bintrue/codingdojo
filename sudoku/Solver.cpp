@@ -13,7 +13,14 @@ Solver::Solver(Board& board)
 
 Solver::Result Solver::solve()
 {
-  stepForward();
+  if (!m_board.isValid())
+  {
+    return Result::INVALID;
+  }
+  if (!stepForward())
+  {
+    return Result::SUCCESS;
+  }
   do
   {
     while(nextValue())

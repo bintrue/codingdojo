@@ -170,5 +170,45 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
       TS_ASSERT_EQUALS(board(0,0), 2);
     }
+
+    void test_solver_deals_with_not_filled_invalid_board()
+    {
+      Board::CellType brd[] = {1, 1, 0, 2};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::INVALID, solver.solve());
+    }
+
+    void test_solver_deals_with_filled_invalid_board()
+    {
+      Board::CellType brd[] = {1, 2, 1, 2};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::INVALID, solver.solve());
+    }
+
+    void test_solver_deals_with_filled_valid_board()
+    {
+      Board::CellType brd[] = {1, 2, 2, 1};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
+    }
+
+    void test_solver_deals_with_another_board()
+    {
+      Board::CellType brd[] = {0, 0, 0, 2};
+      Board board(&brd[0], &brd[sizeof(brd)/sizeof(brd[0])], 1, 2);
+
+      sudoku::Solver solver(board);
+      TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
+      TS_ASSERT_EQUALS(board(0,0), 2);
+      TS_ASSERT_EQUALS(board(1,0), 1);
+      TS_ASSERT_EQUALS(board(0,1), 1);
+      TS_ASSERT_EQUALS(board(1,1), 2);
+    }
 };
 
