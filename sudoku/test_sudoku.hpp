@@ -5,6 +5,7 @@
 #include "Board.hpp"
 #undef private
 
+#include "Solver.hpp"
 
 using sudoku::Board;
 
@@ -150,5 +151,15 @@ class SudokuBoardTest : public CxxTest::TestSuite
       Board board_group_error(& brd_group_error[0], & brd_group_error[81], 3, 3);
       TS_ASSERT( !board_group_error.isValid() );
     }
+
+    void test_solver_is_able_to_solve_1x1_board()
+    {
+      sudoku::Solver solver;
+      Board::CellType brd[] = { 0};
+      Board board(&brd[0], &brd[1], 1, 1);
+      TS_ASSERT(solver.solve(board));  
+      TS_ASSERT_EQUALS(board(0,0), 1);           
+    }
+
 };
 
