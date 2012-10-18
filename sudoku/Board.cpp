@@ -91,5 +91,14 @@ namespace sudoku
     }
     return true;
   }
+
+
+  bool Board::isSolved() const
+  {
+    bool valid = isValid();
+    bool nonZero = ( m_board.end() == std::find(m_board.begin(), m_board.end(), 0));
+    return valid && nonZero;
+
+  }
 }
 

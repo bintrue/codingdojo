@@ -24,6 +24,8 @@ namespace sudoku
 
       bool isValid() const;
 
+      bool isSolved() const;
+
     private:
       typedef std::vector<CellType> CellContainer;
       CellContainer getRow(size_t row) const;
