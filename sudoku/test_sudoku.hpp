@@ -229,6 +229,18 @@ class SudokuBoardTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS(sudoku::Solver::Result::INVALID, solver.solve());
     }
 
+  void print(Board & b)
+  {
+    for (auto i = 0u; i < b.size(); ++i)
+      {
+	for (auto j = 0u; j < b.size(); ++j)
+	  {
+	    std::cout << " " << b(i,j);
+	  }
+	std::cout << std::endl;
+      }
+  }
+
     void test_solver_bigger_table_ok_case()
     {
       Board::CellType brd_ok[] =
@@ -239,6 +251,7 @@ class SudokuBoardTest : public CxxTest::TestSuite
       sudoku::Solver solver(board);
       TS_ASSERT_EQUALS(sudoku::Solver::Result::SUCCESS, solver.solve());
       TS_ASSERT(board.isSolved());
+      print(board);
     }
 };
 
