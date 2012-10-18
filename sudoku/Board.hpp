@@ -13,7 +13,7 @@ namespace sudoku
       class InvalidSizeException {};
       class InvalidValueException {};
 
-      typedef int CellType;
+      typedef unsigned int CellType;
 
 
       template <class InputIterator>

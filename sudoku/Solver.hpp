@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Board.hpp"
+#include <stack>
+#include <tuple>
 
 namespace sudoku
 {
@@ -18,9 +20,15 @@ namespace sudoku
     Result solve();
 
   private:
+    struct State
+    {
+      size_t x;
+      size_t y;
+    };
+    typedef std::stack< State > StateStack;
+
     Board& m_board;
-    typedef std::tuple<std::size_t,std::size_t> Coordinate;
-    typedef std::stack< Coordinate > m_stateStack;
+    StateStack m_stateStack;
 
     bool nextValue();
     bool stepForward();

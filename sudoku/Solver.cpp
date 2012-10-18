@@ -6,13 +6,13 @@ namespace sudoku
 {
 Solver::Solver(Board& board)
   : m_board(board)
+  , m_stateStack()
 {
 }
 
 
 Solver::Result Solver::solve()
 {
-  m_board(0, 0) = 1;
   stepForward();
   do
   {
@@ -34,14 +34,35 @@ Solver::Result Solver::solve()
 
 bool Solver::nextValue()
 {
-  assert(0 == 1);
+  assert( ! m_stateStack.empty() );
+  State & curr = m_stateStack.top();
+  Board::CellType & newValue = m_board(curr.x, curr.y);
+  if ( ++newValue > m_board.size() )
+  {
+    newValue = 0;
+    return false;
+  }
   return true;
 }
 
 
 bool Solver::stepForward()
 {
-  assert(0 == 1);
+
+  for ( size_t y( 0 ); y< m_board.size(); ++y )
+  {
+    for ( size_t x( 0 ); x< m_board.size(); ++x )
+    {
+      if ( 0==m_board( x, y ) )
+      {
+        State newState{ x, y };
+        m_stateStack.push( newState );
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 bool Solver::stepBack()
