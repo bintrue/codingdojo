@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <functional>
 namespace graph
 {
 
@@ -23,23 +23,24 @@ namespace graph
         return m_data;
       }
 
-      void addNeighbour( Node& )
+      void addNeighbour( Node& n)
       {
-
+        m_nodes.push_back(std::ref(n));
       }
 
       iterator begin()
       {
-        return iterator();
+        return m_nodes.begin();
       }
 
       iterator end()
       {
-        return iterator();
+        return m_nodes.end();
       }
 
     private:
       Data m_data;
+      Nodes m_nodes;
   };
 
 }

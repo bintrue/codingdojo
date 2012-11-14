@@ -4,14 +4,9 @@
 #include <functional>
 #include "Node.hpp"
 
-class GraphTest : public CxxTest::TestSuite
+class NodeTest: public CxxTest::TestSuite
 {
   public:
-    GraphTest()
-    {
-    }
-
-
     void test_that_we_can_create_graph_nodes()
     {
       graph::Node< int > ourFirstNode( 42 );
@@ -30,8 +25,7 @@ class GraphTest : public CxxTest::TestSuite
       graph::Node< int > ourSecondNode( 2 );
       ourFirstNode.addNeighbour( ourSecondNode );
       TS_ASSERT_EQUALS( &(ourFirstNode.begin()->get()), &ourSecondNode);
-      //TS_ASSERT_EQUALS( ++(ourFirstNode.begin()), ourFirstNode.end());
-
+      TS_ASSERT_EQUALS( ++(ourFirstNode.begin()), ourFirstNode.end());
     }
 
 };
