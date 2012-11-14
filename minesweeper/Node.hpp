@@ -7,15 +7,18 @@ namespace graph
   class Node
   {
     public:
-      Node( const Data& )
+      Node( const Data& data )
+        : m_data( data )
       {
       }
 
       Data& data()
       {
-        static Data data( 42 );
-        return data;
+        return m_data;
       }
+
+    private:
+      Data m_data;
   };
 
 }

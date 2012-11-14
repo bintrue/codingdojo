@@ -1,5 +1,6 @@
 #include <cxxtest/TestSuite.h>
 
+#include <string>
 #include "Node.hpp"
 
 class GraphTest : public CxxTest::TestSuite
@@ -14,6 +15,12 @@ class GraphTest : public CxxTest::TestSuite
     {
       graph::Node< int > ourFirstNode( 42 );
       TS_ASSERT_EQUALS( ourFirstNode.data(), 42 );
+
+      graph::Node< int > ourSecondNode( 43 );
+      TS_ASSERT_EQUALS( ourSecondNode.data(), 43 );
+
+      graph::Node< std::string > ourThirdNode( "42" );
+      TS_ASSERT_EQUALS( ourThirdNode.data(), std::string( "42" ) );
     }
 
 };
