@@ -18,10 +18,20 @@ minesweeper::Board::mineCount() const
   });
 }
 
-minesweeper::Board minesweeper::generateGrid(size_t width, size_t height, size_t )
+minesweeper::Board minesweeper::generateGrid(size_t width, size_t height, size_t mineNum)
 {
   Board board;
   board.createNodes(width*height);
+  board.setMine(mineNum);
   return board;
 }
+
+void minesweeper::Board::setMine(size_t mineNum)
+{
+  for(size_t i = 0; i < mineNum; ++i)
+  {
+    m_nodes[i].data() = 1;
+  }
+}
+
 

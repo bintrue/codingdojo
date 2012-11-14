@@ -19,6 +19,7 @@ namespace minesweeper
     size_t mineCount() const;
 
     void createNodes(size_t count);
+    void setMine(size_t mineNum);
 
   private:
     typedef graph::Node<int> NodeType;
