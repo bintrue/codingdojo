@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace graph
 {
 
@@ -7,6 +9,10 @@ namespace graph
   class Node
   {
     public:
+
+      typedef std::vector<Node*> Nodes;
+      typedef typename Nodes::iterator iterator;
+
       Node( const Data& data )
         : m_data( data )
       {
@@ -15,6 +21,21 @@ namespace graph
       Data& data()
       {
         return m_data;
+      }
+
+      void addNeighbour( Node& )
+      {
+
+      }
+
+      iterator begin()
+      {
+        return iterator();
+      }
+
+      iterator end()
+      {
+        return iterator();
       }
 
     private:

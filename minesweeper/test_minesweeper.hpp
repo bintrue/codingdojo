@@ -23,5 +23,15 @@ class GraphTest : public CxxTest::TestSuite
       TS_ASSERT_EQUALS( ourThirdNode.data(), std::string( "42" ) );
     }
 
+    void test_that_we_can_add_neighbours()
+    {
+      graph::Node< int > ourFirstNode( 1 );
+      graph::Node< int > ourSecondNode( 2 );
+      ourFirstNode.addNeighbour( ourSecondNode );
+      TS_ASSERT_EQUALS( &(*ourFirstNode.begin()), &ourSecondNode);
+      //TS_ASSERT_EQUALS( ++(ourFirstNode.begin()), ourFirstNode.end());
+
+    }
+
 };
 
