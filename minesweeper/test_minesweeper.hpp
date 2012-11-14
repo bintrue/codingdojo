@@ -1,16 +1,19 @@
 #include <cxxtest/TestSuite.h>
 
-class SampleTest : public CxxTest::TestSuite
+#include "Node.hpp"
+
+class GraphTest : public CxxTest::TestSuite
 {
   public:
-    SampleTest()
+    GraphTest()
     {
     }
 
 
-    void testSample()
+    void test_that_we_can_create_graph_nodes()
     {
-      TS_ASSERT_EQUALS( true, true );
+      graph::Node< int > ourFirstNode( 42 );
+      TS_ASSERT_EQUALS( ourFirstNode.data(), 42 );
     }
 
 };
