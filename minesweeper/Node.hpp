@@ -10,7 +10,7 @@ namespace graph
   {
     public:
 
-      typedef std::vector<Node*> Nodes;
+      typedef std::vector<std::reference_wrapper<Node>> Nodes;
       typedef typename Nodes::iterator iterator;
 
       Node( const Data& data )

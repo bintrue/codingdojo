@@ -1,6 +1,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <string>
+#include <functional>
 #include "Node.hpp"
 
 class GraphTest : public CxxTest::TestSuite
@@ -28,7 +29,7 @@ class GraphTest : public CxxTest::TestSuite
       graph::Node< int > ourFirstNode( 1 );
       graph::Node< int > ourSecondNode( 2 );
       ourFirstNode.addNeighbour( ourSecondNode );
-      TS_ASSERT_EQUALS( &(*ourFirstNode.begin()), &ourSecondNode);
+      TS_ASSERT_EQUALS( &(ourFirstNode.begin()->get()), &ourSecondNode);
       //TS_ASSERT_EQUALS( ++(ourFirstNode.begin()), ourFirstNode.end());
 
     }
