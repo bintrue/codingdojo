@@ -15,7 +15,7 @@ class BoardTest: public CxxTest::TestSuite
     void test_test_we_can_generate_board()
     {
       minesweeper::Board gridBoard(minesweeper::generateGrid(1, 1, 0));
-    
+      TS_ASSERT_EQUALS(gridBoard.nodeCount(), 1);
     }
 
 };
