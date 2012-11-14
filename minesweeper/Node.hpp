@@ -23,6 +23,11 @@ namespace graph
         return m_data;
       }
 
+      const Data& data() const
+      {
+        return m_data;
+      }
+
       void addNeighbour( Node& n)
       {
         m_nodes.push_back(std::ref(n));

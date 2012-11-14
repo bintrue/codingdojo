@@ -16,10 +16,13 @@ namespace minesweeper
       return m_nodes.size();
     }
 
+    size_t mineCount() const;
+
     void createNodes(size_t count);
 
   private:
-    std::vector<graph::Node<int>> m_nodes;
+    typedef graph::Node<int> NodeType;
+    std::vector<NodeType> m_nodes;
   };
 
   Board generateGrid(size_t width, size_t height, size_t mineNum);
