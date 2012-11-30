@@ -11,7 +11,7 @@ namespace graph
     public:
 
       typedef std::vector<std::reference_wrapper<Node>> Nodes;
-      typedef typename Nodes::iterator iterator;
+      typedef typename Nodes::const_iterator const_iterator;
 
       Node( const Data& data )
         : m_data( data )
@@ -33,12 +33,12 @@ namespace graph
         m_neighbours.push_back(std::ref(n));
       }
 
-      iterator begin()
+      const_iterator begin() const
       {
         return m_neighbours.begin();
       }
 
-      iterator end()
+      const_iterator end() const
       {
         return m_neighbours.end();
       }
