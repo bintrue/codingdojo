@@ -8,7 +8,7 @@ namespace minesweeper
   class GridBoard : public Board
   {
     public:
-      GridBoard();
+      GridBoard(size_t width, size_t height, size_t mineCount);
   };
 }
 

@@ -10,7 +10,9 @@ class GridBoardTest: public CxxTest::TestSuite
 
     void test_that_we_can_create_board()
     {
-      minesweeper::GridBoard gridBoard;
+      minesweeper::GridBoard gridBoard(6, 7, 5);
+      TS_ASSERT_EQUALS(gridBoard.nodeCount(), 42u);
+      TS_ASSERT_EQUALS(gridBoard.mineCount(), 5u);
     }
 };
 
