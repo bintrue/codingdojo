@@ -16,3 +16,12 @@ const minesweeper::GridBoard::NodeType& minesweeper::GridBoard::operator()(size_
   return m_nodes[m_width*y+x];
 }
 
+std::size_t minesweeper::GridBoard::width() const
+{
+  return m_width;
+}
+
+std::size_t minesweeper::GridBoard::height() const
+{
+  return m_height;
+}
