@@ -22,18 +22,22 @@ class GridBoardTest: public CxxTest::TestSuite
         gridBoard(1,1);
     }
 
+    bool isNeighbour(const minesweeper::GridBoard::NodeType &node, 
+                     const minesweeper::GridBoard::NodeType &neighbour)
+    {
+      return(std::find_if(node.begin(),node.end(),
+          [&] (const minesweeper::GridBoard::NodeType &x)
+          {
+            return &x==&neighbour;
+          }) != node.end());
+    }
+
     void test_node_connectivity()
     {
       minesweeper::GridBoard gridBoard(6, 7, 5);
       auto &topLeft=gridBoard(0,0);
       auto &topLeftRightNeighbour=gridBoard(1,0);
-      TS_ASSERT_DIFFERS(
-      std::find_if(topLeft.begin(),topLeft.end(),
-          [&] (const minesweeper::GridBoard::NodeType &x)
-          {
-            return &x==&topLeftRightNeighbour;
-          }),
-      topLeft.end());
+      TS_ASSERT(isNeighbour(topLeft, topLeftRightNeighbour));
     }
 
 };
