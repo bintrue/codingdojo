@@ -15,11 +15,10 @@ class GridBoardTest: public CxxTest::TestSuite
       TS_ASSERT_EQUALS(gridBoard.mineCount(), 5u);
     }
 
-    void test_assignValue()
+    void test_check_connectivity()
     {
       minesweeper::GridBoard gridBoard(6, 7, 5);
-      gridBoard[1,1] = 1;
-
+      gridBoard(1,1);
     }
 };
 

@@ -9,6 +9,8 @@ namespace minesweeper
   class Board 
   {
   public:
+    typedef graph::Node<int> NodeType;
+
     Board( size_t nodeCount, size_t mineCount );
 
     size_t nodeCount() const;
@@ -17,8 +19,7 @@ namespace minesweeper
     void createNodes(size_t count);
     void setMine(size_t mineNum);
 
-  private:
-    typedef graph::Node<int> NodeType;
+  protected:
     std::vector<NodeType> m_nodes;
   };
 }
