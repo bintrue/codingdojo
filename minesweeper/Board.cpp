@@ -1,13 +1,23 @@
 #include "Board.hpp"
 #include <algorithm>
 
-minesweeper::Board::Board()
-{}
+minesweeper::Board::Board( size_t nodeCount, size_t mineCount )
+{
+  createNodes( nodeCount );
+  setMine( mineCount );
+}
 
 void minesweeper::Board::createNodes(size_t count)
 {
-  m_nodes.resize(count,NodeType(0)); 
+  m_nodes.resize(count,NodeType(0));
 }
+
+
+size_t minesweeper::Board::nodeCount() const
+{
+  return m_nodes.size();
+}
+
 
 minesweeper::size_t
 minesweeper::Board::mineCount() const
@@ -18,13 +28,6 @@ minesweeper::Board::mineCount() const
   });
 }
 
-minesweeper::Board minesweeper::generateGrid(size_t width, size_t height, size_t mineNum)
-{
-  Board board;
-  board.createNodes(width*height);
-  board.setMine(mineNum);
-  return board;
-}
 
 void minesweeper::Board::setMine(size_t mineNum)
 {

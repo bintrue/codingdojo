@@ -30,22 +30,22 @@ namespace graph
 
       void addNeighbour( Node& n)
       {
-        m_nodes.push_back(std::ref(n));
+        m_neighbours.push_back(std::ref(n));
       }
 
       iterator begin()
       {
-        return m_nodes.begin();
+        return m_neighbours.begin();
       }
 
       iterator end()
       {
-        return m_nodes.end();
+        return m_neighbours.end();
       }
 
     private:
       Data m_data;
-      Nodes m_nodes;
+      Nodes m_neighbours;
   };
 
 }

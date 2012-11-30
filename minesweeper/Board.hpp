@@ -9,13 +9,9 @@ namespace minesweeper
   class Board 
   {
   public:
-    Board();
+    Board( size_t nodeCount, size_t mineCount );
 
-    size_t nodeCount() const
-    {
-      return m_nodes.size();
-    }
-
+    size_t nodeCount() const;
     size_t mineCount() const;
 
     void createNodes(size_t count);
