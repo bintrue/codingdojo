@@ -14,5 +14,12 @@ class GridBoardTest: public CxxTest::TestSuite
       TS_ASSERT_EQUALS(gridBoard.nodeCount(), 42u);
       TS_ASSERT_EQUALS(gridBoard.mineCount(), 5u);
     }
+
+    void test_assignValue()
+    {
+      minesweeper::GridBoard gridBoard(6, 7, 5);
+      gridBoard[1,1] = 1;
+
+    }
 };
 

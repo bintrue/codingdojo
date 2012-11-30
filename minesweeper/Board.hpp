@@ -21,7 +21,5 @@ namespace minesweeper
     typedef graph::Node<int> NodeType;
     std::vector<NodeType> m_nodes;
   };
-
-  Board generateGrid(size_t width, size_t height, size_t mineNum);
 }
 
